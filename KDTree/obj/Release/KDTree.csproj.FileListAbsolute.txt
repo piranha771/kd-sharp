@@ -3,3 +3,8 @@ C:\Users\John\Documents\Visual Studio 2010\Projects\KDTree\KDTree\bin\Release\KD
 C:\Users\John\Documents\Visual Studio 2010\Projects\KDTree\KDTree\obj\Release\ResolveAssemblyReference.cache
 C:\Users\John\Documents\Visual Studio 2010\Projects\KDTree\KDTree\obj\Release\KDTree.dll
 C:\Users\John\Documents\Visual Studio 2010\Projects\KDTree\KDTree\obj\Release\KDTree.pdb
+D:\Dropbox\Projekte\kd-sharp\KDTree\bin\Release\KDTree.dll
+D:\Dropbox\Projekte\kd-sharp\KDTree\bin\Release\KDTree.pdb
+D:\Dropbox\Projekte\kd-sharp\KDTree\obj\Release\KDTree.csprojResolveAssemblyReference.cache
+D:\Dropbox\Projekte\kd-sharp\KDTree\obj\Release\KDTree.dll
+D:\Dropbox\Projekte\kd-sharp\KDTree\obj\Release\KDTree.pdb
