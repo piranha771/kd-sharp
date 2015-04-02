@@ -30,7 +30,7 @@ namespace KDTree
         /// <summary>
         /// The array of locations.  [index][dimension]
         /// </summary>
-        protected internal double[][] tPoints;
+        protected internal float[][] tPoints;
 
         /// <summary>
         /// The array of data values. [index]
@@ -49,13 +49,13 @@ namespace KDTree
         /// <summary>
         /// The split value (larger go into the right, smaller go into left)
         /// </summary>
-        protected internal double fSplitValue;
+        protected internal float fSplitValue;
 
         // Bounds
         /// <summary>
         /// The min and max bound for this node.  All dimensions.
         /// </summary>
-        protected internal double[] tMinBound, tMaxBound;
+        protected internal float[] tMinBound, tMaxBound;
 
         /// <summary>
         /// Does this node represent only one point.
@@ -76,7 +76,7 @@ namespace KDTree
             this.bSinglePoint = true;
 
             // Setup leaf elements.
-            this.tPoints = new double[iBucketCapacity+1][];
+            this.tPoints = new float[iBucketCapacity + 1][];
             this.tData = new T[iBucketCapacity+1];
         }
         #endregion
@@ -97,7 +97,7 @@ namespace KDTree
         /// </summary>
         /// <param name="tPoint">The position which represents the data.</param>
         /// <param name="kValue">The value of the data.</param>
-        public void AddPoint(double[] tPoint, T kValue)
+        public void AddPoint(float[] tPoint, T kValue)
         {
             // Find the correct leaf node.
             KDNode<T> pCursor = this;
@@ -129,7 +129,7 @@ namespace KDTree
         /// </summary>
         /// <param name="tPoint">The point to insert the data at.</param>
         /// <param name="kValue">The value at the point.</param>
-        private void AddLeafPoint(double[] tPoint, T kValue)
+        private void AddLeafPoint(float[] tPoint, T kValue)
         {
             // Add the data point to this node.
             tPoints[Size] = tPoint;
@@ -159,7 +159,7 @@ namespace KDTree
         /// </summary>
         /// <param name="tPoint">The point.</param>
         /// <returns>True if the point is inside the boundaries, false outside.</returns>
-        private bool CheckBounds(double[] tPoint)
+        private bool CheckBounds(float[] tPoint)
         {
             for (int i = 0; i < iDimensions; ++i)
             {
@@ -173,13 +173,13 @@ namespace KDTree
         /// Extend this node to contain a new point.
         /// </summary>
         /// <param name="tPoint">The point to contain.</param>
-        private void ExtendBounds(double[] tPoint)
+        private void ExtendBounds(float[] tPoint)
         {
             // If we don't have bounds, create them using the new point then bail.
             if (tMinBound == null) 
             {
-                tMinBound = new double[iDimensions];
-                tMaxBound = new double[iDimensions];
+                tMinBound = new float[iDimensions];
+                tMaxBound = new float[iDimensions];
                 Array.Copy(tPoint, tMinBound, iDimensions);
                 Array.Copy(tPoint, tMaxBound, iDimensions);
                 return;
@@ -193,8 +193,8 @@ namespace KDTree
                     if (!Double.IsNaN(tMinBound[i]) || !Double.IsNaN(tMaxBound[i]))
                         bSinglePoint = false;
                     
-                    tMinBound[i] = Double.NaN;
-                    tMaxBound[i] = Double.NaN;
+                    tMinBound[i] = Single.NaN;
+                    tMaxBound[i] = Single.NaN;
                 }
                 else if (tMinBound[i] > tPoint[i])
                 {
@@ -213,8 +213,8 @@ namespace KDTree
         /// Double the capacity of this leaf.
         /// </summary>
         private void IncreaseLeafCapacity()
-        {   
-            Array.Resize<double[]>(ref tPoints, tPoints.Length * 2);
+        {
+            Array.Resize<float[]>(ref tPoints, tPoints.Length * 2);
             Array.Resize<T>(ref tData, tData.Length * 2);
         }
 
@@ -230,10 +230,10 @@ namespace KDTree
                 return false;
 
             // Find the dimension with the largest range.  This will be our split dimension.
-            double fWidth = 0;
+            float fWidth = 0f;
             for (int i = 0; i < iDimensions; i++)
             {
-                double fDelta = (tMaxBound[i] - tMinBound[i]);
+                float fDelta = (tMaxBound[i] - tMinBound[i]);
                 if (Double.IsNaN(fDelta))
                     fDelta = 0;
 
@@ -249,13 +249,13 @@ namespace KDTree
                 return false;
 
             // Split in the middle of the node along the widest dimension.
-            fSplitValue = (tMinBound[iSplitDimension] + tMaxBound[iSplitDimension]) * 0.5;
+            fSplitValue = (tMinBound[iSplitDimension] + tMaxBound[iSplitDimension]) * 0.5f;
 
             // Never split on infinity or NaN.
-            if (fSplitValue == Double.PositiveInfinity)
-                fSplitValue = Double.MaxValue;
-            else if (fSplitValue == Double.NegativeInfinity)
-                fSplitValue = Double.MinValue;
+            if (fSplitValue == Single.PositiveInfinity)
+                fSplitValue = Single.MaxValue;
+            else if (fSplitValue == Single.NegativeInfinity)
+                fSplitValue = Single.MinValue;
             
             // Don't let the split value be the same as the upper value as
             // can happen due to rounding errors!
@@ -280,7 +280,7 @@ namespace KDTree
             for (int i = 0; i < Size; ++i)
             {
                 // Store.
-                double[] tOldPoint = tPoints[i];
+                float[] tOldPoint = tPoints[i];
                 T kOldData = tData[i];
 
                 // If larger, put it in the right.

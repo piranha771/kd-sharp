@@ -35,10 +35,10 @@ namespace KDVisuals
         private class EllipseWrapper
         {
             public bool Filled;
-            public double x;
-            public double y;
+            public float x;
+            public float y;
 
-            public EllipseWrapper(double x, double y)
+            public EllipseWrapper(float x, float y)
             {
                 this.x = x;
                 this.y = y;
@@ -102,7 +102,7 @@ namespace KDVisuals
                     var y = pRandom.NextDouble() * cnvPoints.ActualHeight;
 
                     // Add it to the tree.
-                    pTree.AddPoint(new double[] { x, y }, new EllipseWrapper(x, y));
+                    pTree.AddPoint(new float[] { x, y }, new EllipseWrapper(x, y));
 
                     // Draw a ghost visual for it.
                     //pBitmap.DrawEllipse((int)x - 2, (int)y - 2, (int)x + 2, (int)y + 2, Colors.Green);
@@ -129,9 +129,9 @@ namespace KDVisuals
             if (!int.TryParse(txtFindMax.Text, out iMax))
                 txtFindMax.Foreground = Brushes.Red;
 
-            double fThreshold = -1;
+            float fThreshold = -1;
             txtFindThreshold.Foreground = Brushes.Black;
-            if (!double.TryParse(txtFindThreshold.Text, out fThreshold))
+            if (!float.TryParse(txtFindThreshold.Text, out fThreshold))
                 txtFindThreshold.Foreground = Brushes.Red;
 
             // Compute the square threshold as we use a square distance function.
@@ -148,7 +148,7 @@ namespace KDVisuals
                 var vPoint = e.GetPosition(cnvPoints);
 
                 // Perform a nearest neighbour search around that point.
-                var pIter = pTree.NearestNeighbors(new double[] { vPoint.X, vPoint.Y }, iMax, fThreshold);
+                var pIter = pTree.NearestNeighbors(new float[] { vPoint.X, vPoint.Y }, iMax, fThreshold);
                 while (pIter.MoveNext())
                 {
                     // Get the ellipse.

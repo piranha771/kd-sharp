@@ -17,7 +17,7 @@ namespace KDTree
         /// <param name="p1">The first point.</param>
         /// <param name="p2">The second point.</param>
         /// <returns>The n-dimensional distance.</returns>
-        double Distance(double[] p1, double[] p2);
+        float Distance(float[] p1, float[] p2);
 
         /// <summary>
         /// Find the shortest distance from a point to an axis aligned rectangle in n-dimensional space.
@@ -26,7 +26,7 @@ namespace KDTree
         /// <param name="min">The minimum coordinate of the rectangle.</param>
         /// <param name="max">The maximum coorindate of the rectangle.</param>
         /// <returns>The shortest n-dimensional distance between the point and rectangle.</returns>
-        double DistanceToRectangle(double[] point, double[] min, double[] max);
+        float DistanceToRectangle(float[] point, float[] min, float[] max);
     }
 
     /// <summary>
@@ -40,12 +40,12 @@ namespace KDTree
         /// <param name="p1">The first point.</param>
         /// <param name="p2">The second point.</param>
         /// <returns>The n-dimensional squared distance.</returns>
-        public double Distance(double[] p1, double[] p2)
+        public float Distance(float[] p1, float[] p2)
         {
-            double fSum = 0;
+            float fSum = 0f;
             for (int i = 0; i < p1.Length; i++)
             {
-                double fDifference = (p1[i] - p2[i]);
+                float fDifference = (p1[i] - p2[i]);
                 fSum += fDifference * fDifference;
             }
             return fSum;
@@ -58,10 +58,10 @@ namespace KDTree
         /// <param name="min">The minimum coordinate of the rectangle.</param>
         /// <param name="max">The maximum coorindate of the rectangle.</param>
         /// <returns>The shortest squared n-dimensional squared distance between the point and rectangle.</returns>
-        public double DistanceToRectangle(double[] point, double[] min, double[] max)
+        public float DistanceToRectangle(float[] point, float[] min, float[] max)
         {
-            double fSum = 0;
-            double fDifference = 0;
+            float fSum = 0f;
+            float fDifference = 0f;
             for (int i = 0; i < point.Length; ++i)
             {
                 fDifference = 0;

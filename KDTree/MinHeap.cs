@@ -24,7 +24,7 @@ namespace KDTree
         /// <summary>
         /// The key array.  This determines how items are ordered. Smallest first.
         /// </summary>
-        private double[] tKeys;
+        private float[] tKeys;
 
         /// <summary>
         /// Create a new min heap with the default capacity.
@@ -40,7 +40,7 @@ namespace KDTree
         public MinHeap(int iCapacity)
         {
             this.tData = new T[iCapacity];
-            this.tKeys = new double[iCapacity];
+            this.tKeys = new float[iCapacity];
             this.Capacity = iCapacity;
             this.Size = 0;
         }
@@ -60,7 +60,7 @@ namespace KDTree
         /// </summary>
         /// <param name="key">The key which represents its position in the priority queue (ie. distance).</param>
         /// <param name="value">The value to be stored at the key.</param>
-        public void Insert(double key, T value)
+        public void Insert(float key, T value)
         {
             // If we need more room, double the space.
             if (Size >= Capacity)
@@ -74,7 +74,7 @@ namespace KDTree
                 tData = newData;
 
                 // Copy the key array.
-                var newKeys = new double[Capacity];
+                var newKeys = new float[Capacity];
                 Array.Copy(tKeys, newKeys, tKeys.Length);
                 tKeys = newKeys;
             }
@@ -118,7 +118,7 @@ namespace KDTree
         /// <summary>
         /// Get the key which represents the minimum element.
         /// </summary>
-        public double MinKey
+        public float MinKey
         {
             get
             {
@@ -141,7 +141,7 @@ namespace KDTree
                 iChild = iParent, iParent = (iChild - 1) / 2)
             {
                 T kData = tData[iParent];
-                double dDist = tKeys[iParent];
+                float dDist = tKeys[iParent];
 
                 tData[iParent] = tData[iChild];
                 tKeys[iParent] = tKeys[iChild];
@@ -169,7 +169,7 @@ namespace KDTree
                 {
                     // Swap the points
                     T pData = tData[iParent];
-                    double pDist = tKeys[iParent];
+                    float pDist = tKeys[iParent];
 
                     tData[iParent] = tData[iChild];
                     tKeys[iParent] = tKeys[iChild];

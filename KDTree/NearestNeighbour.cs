@@ -13,7 +13,7 @@ namespace KDTree
     public class NearestNeighbour<T> : IEnumerator
     {
         /// <summary>The point from which are searching in n-dimensional space.</summary>
-        private double[] tSearchPoint;
+        private float[] tSearchPoint;
         /// <summary>A distance function which is used to compare nodes and value positions.</summary>
         private DistanceFunctions kDistanceFunction;
         /// <summary>The tree nodes which have yet to be evaluated.</summary>
@@ -28,10 +28,10 @@ namespace KDTree
         /// <summary>The number of points we can still test before conclusion.</summary>
         private int iPointsRemaining;
         /// <summary>Threshold to apply to tree iteration.  Negative numbers mean no threshold applied.</summary>
-        private double fThreshold;
+        private float fThreshold;
 
         /// <summary>Current value distance.</summary>
-        private double _CurrentDistance = -1;
+        private float _CurrentDistance = -1;
         /// <summary>Current value reference.</summary>
         private T _Current = default(T);
 
@@ -43,14 +43,14 @@ namespace KDTree
         /// <param name="kDistance">The distance function used to evaluate the points.</param>
         /// <param name="iMaxPoints">The max number of points which can be returned by this iterator.  Capped to max in tree.</param>
         /// <param name="fThreshold">Threshold to apply to the search space.  Negative numbers indicate that no threshold is applied.</param>
-        public NearestNeighbour(KDNode<T> pRoot, double[] tSearchPoint, DistanceFunctions kDistance, int iMaxPoints, double fThreshold)
+        public NearestNeighbour(KDNode<T> pRoot, float[] tSearchPoint, DistanceFunctions kDistance, int iMaxPoints, float fThreshold)
         {
             // Check the dimensionality of the search point.
             if (tSearchPoint.Length != pRoot.iDimensions)
                 throw new Exception("Dimensionality of search point and kd-tree are not the same.");
 
             // Store the search point.
-            this.tSearchPoint = new double[tSearchPoint.Length];
+            this.tSearchPoint = new float[tSearchPoint.Length];
             Array.Copy(tSearchPoint, this.tSearchPoint, tSearchPoint.Length);
 
             // Store the point count, distance function and tree root.
@@ -107,7 +107,7 @@ namespace KDTree
                     }
 
                     // Calculate the shortest distance between the search point and the min and max bounds of the kd-node.
-                    double fDistance = kDistanceFunction.DistanceToRectangle(tSearchPoint, pNotTaken.tMinBound, pNotTaken.tMaxBound);
+                    float fDistance = kDistanceFunction.DistanceToRectangle(tSearchPoint, pNotTaken.tMinBound, pNotTaken.tMaxBound);
 
                     // If it is greater than the threshold, skip.
                     if (fThreshold >= 0 && fDistance > fThreshold)
@@ -127,7 +127,7 @@ namespace KDTree
                 if (pCursor.bSinglePoint)
                 {
                     // Work out the distance between this point and the search point.
-                    double fDistance = kDistanceFunction.Distance(pCursor.tPoints[0], tSearchPoint);
+                    float fDistance = kDistanceFunction.Distance(pCursor.tPoints[0], tSearchPoint);
 
                     // Skip if the point exceeds the threshold.
                     // Technically this should never happen, but be prescise.
@@ -157,7 +157,7 @@ namespace KDTree
                     for (int i = 0; i < pCursor.Size; ++i)
                     {
                         // Compute the distance between the points.
-                        double fDistance = kDistanceFunction.Distance(pCursor.tPoints[i], tSearchPoint);
+                        float fDistance = kDistanceFunction.Distance(pCursor.tPoints[i], tSearchPoint);
 
                         // Skip if it exceeds the threshold.
                         if (fThreshold >= 0 && fDistance >= fThreshold)
@@ -213,7 +213,7 @@ namespace KDTree
         /// <summary>
         /// Return the distance of the current value to the search point.
         /// </summary>
-        public double CurrentDistance
+        public float CurrentDistance
         {
             get { return _CurrentDistance; }
         }

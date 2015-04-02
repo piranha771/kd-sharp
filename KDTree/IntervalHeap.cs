@@ -27,7 +27,7 @@ namespace KDTree
         /// <summary>
         /// The array of keys which 
         /// </summary>
-        private double[] tKeys;
+        private float[] tKeys;
 
         /// <summary>
         /// Construct a new interval heap with the default capacity.
@@ -43,7 +43,7 @@ namespace KDTree
         public IntervalHeap(int capacity)
         {
             this.tData = new T[capacity];
-            this.tKeys = new double[capacity];
+            this.tKeys = new float[capacity];
             this.Capacity = capacity;
             this.Size = 0;
         }
@@ -94,7 +94,7 @@ namespace KDTree
         /// <summary>
         /// Get the smallest key.
         /// </summary>
-        public double MinKey
+        public float MinKey
         {
             get
             {
@@ -107,7 +107,7 @@ namespace KDTree
         /// <summary>
         /// Get the largest key.
         /// </summary>
-        public double MaxKey
+        public float MaxKey
         {
             get
             {
@@ -129,7 +129,7 @@ namespace KDTree
         /// </summary>
         /// <param name="key">The value which represents our data (i.e. a distance).</param>
         /// <param name="value">The data we want to store.</param>
-        public void Insert(double key, T value)
+        public void Insert(float key, T value)
         {
             // If more room is needed, double the array size.
             if (Size >= Capacity)
@@ -143,7 +143,7 @@ namespace KDTree
                 tData = newData;
 
                 // Expand the key array.
-                var newKeys = new double[Capacity];
+                var newKeys = new float[Capacity];
                 Array.Copy(tKeys, newKeys, tKeys.Length);
                 tKeys = newKeys;
             }
@@ -179,7 +179,7 @@ namespace KDTree
         /// </summary>
         /// <param name="key">The new minimum key.</param>
         /// <param name="value">The new minumum data value.</param>
-        public void ReplaceMin(double key, T value)
+        public void ReplaceMin(float key, T value)
         {
             // Check for errors.
             if (Size == 0)
@@ -230,7 +230,7 @@ namespace KDTree
         /// </summary>
         /// <param name="key">The new key for the largest item.</param>
         /// <param name="value">The new data for the largest item.</param>
-        public void ReplaceMax(double key, T value)
+        public void ReplaceMax(float key, T value)
         {
             if (Size == 0)
             {
@@ -263,7 +263,7 @@ namespace KDTree
         {
             // Store temp.
             T yData = tData[y];
-            double yDist = tKeys[y];
+            float yDist = tKeys[y];
 
             // Swap
             tData[y] = tData[x];
